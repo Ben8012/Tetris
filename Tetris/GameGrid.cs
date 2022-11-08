@@ -26,16 +26,20 @@ namespace Tetris
             set => _grid[r , c] = value;
         }
 
+
+        // verifier si la cellule est dans la grille
         public bool IsInsideGrid(int r,int c)
         {
-            return r >= 0 && r < Rows && c < Columns;
+            return r >= 0 && r < Rows && c>=0 && c < Columns;
         }
 
+        // verifier si la cellule est remplie ou pas 
         public bool IsCellEmpty(int r , int c)
         {
             return IsInsideGrid(r,c) && _grid[r , c] == 0;
         }
 
+        // verifier si une ligne est complete 
         public bool IsRowFull(int r)
         {
             for (int c = 0; c < Columns; c++)
@@ -46,6 +50,7 @@ namespace Tetris
             return true;
         }
 
+        // verifier si une ligne est vide
         public bool IsRowEmpty(int r)
         {
             for (int c = 0; c < Columns; c++)
@@ -56,6 +61,7 @@ namespace Tetris
             return true;
         }
 
+        // effacer une ligne
         public void ClearRow(int r)
         {
             for (int c = 0; c < Columns; c++)
@@ -64,6 +70,7 @@ namespace Tetris
             }     
         }
 
+        // deplacer une ligne vers le bas 
         private void MoveRowDown(int r, int numRows)
         {
             for (int c = 0; c < Columns; c++)
@@ -73,10 +80,10 @@ namespace Tetris
             }
         }
 
+        // effacer tout la ligne
         public int ClearFullRows()
         {
             int cleared = 0;
-
             for (int r = Rows-1; r >= 0; r--)
             {
                 if (IsRowFull(r))
@@ -89,7 +96,6 @@ namespace Tetris
                     MoveRowDown(r, cleared);
                 }
             }
-
             return cleared;
         }
 

@@ -9,7 +9,6 @@ namespace Tetris
     public class GameState
     {
         private Block _currentBlock;
-
         public Block CurrentBlock
         {
             get => _currentBlock; 
@@ -29,12 +28,9 @@ namespace Tetris
                 }
             } 
         }
-
         public GameGrid GameGrid { get; }
         public BlockQueue BlockQueue { get; }
-
         public bool GameOver { get; private set; }
-
         public int Score { get; private set; }
 
         public Block HeldBlock { get; private set; }
@@ -48,6 +44,7 @@ namespace Tetris
             CanHold = true;
         }
 
+        // Verifie si le block est dans une position correct
         private bool BlockFits()
         {
             foreach (Position p in CurrentBlock.TilePositions())
@@ -81,6 +78,7 @@ namespace Tetris
             CanHold = false;
         }
 
+        // rotation dans le sens des aiguilles d'une montre
         public void RotateBlockCW()
         {
             CurrentBlock.RotateCW();
@@ -90,6 +88,7 @@ namespace Tetris
             }
         }
 
+        // roation dans le sens inverse des aiguilles d'une montre
         public void RotateBlockCCW()
         {
             CurrentBlock.RotateCCW();
@@ -99,6 +98,7 @@ namespace Tetris
             }
         }
 
+        // bouger le block sur la gauche
         public void MoveBlockLeft()
         {
             CurrentBlock.Move(0, -1);
@@ -108,6 +108,8 @@ namespace Tetris
             }
         }
 
+
+        // bouger le block sur la droite
         public void MoveBlockRight()
         {
             CurrentBlock.Move(0, 1);
@@ -117,11 +119,15 @@ namespace Tetris
             }
         }
 
+        // fin du jeux
         private bool IsGameOver()
         {
             return !(GameGrid.IsRowEmpty(0) && GameGrid.IsRowEmpty(1));
         }
 
+        // lors du placement d'un block on boucle sur la grille pour assigner les nouveau Id 
+        // on efface les lignes pleines en incrementant le score
+        // on verifie si la partie est perdue si pas on met a jour les block courant
         private void PlaceBlock()
         {
             foreach (Position p in CurrentBlock.TilePositions())
@@ -142,6 +148,7 @@ namespace Tetris
             }
         }
 
+        // deplacer les block vers la bas
         public void MoveBlockDown()
         {
             CurrentBlock.Move(1, 0);

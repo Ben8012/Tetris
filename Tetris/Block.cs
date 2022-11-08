@@ -22,6 +22,7 @@ namespace Tetris
             _offset = new Position(StartOffset.Row, StartOffset.Column);
         }
 
+        // renvois la position du block sa grille !!!
         public IEnumerable<Position> TilePositions()
         {
             foreach (Position p in Tiles[_rotationState])
@@ -49,12 +50,14 @@ namespace Tetris
             }
         }
 
+        // Deplacement d'un block
         public void Move(int rows, int columns)
         {
             _offset.Row += rows;
             _offset.Column += columns;
         }
 
+        // Reset les valeur de rotation et de position du block
         public void Reset()
         {
             _rotationState = 0;
